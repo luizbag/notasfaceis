@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var jwt = require('jsonwebtoken');
 
 var config = require('./config');
 
@@ -22,6 +23,7 @@ var secret = config.secret;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var cadernos = require('./routes/cadernos');
 
 var app = express();
 
@@ -38,8 +40,29 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/login', login);
+
+app.use('/cadernos', function(req, res, next) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  if(token) {
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if(err) {
+        console.log("Não autorizado");
+        return res.sendStatus(401);
+      } else {
+        console.log("Autorizado");
+        req.decoded = decoded;
+        next();
+      }
+    });
+  } else {
+    console.log("Sem token");
+    return res.sendStatus(401);
+  }
+});
+
+app.use('/users', users);
+app.use('/cadernos', cadernos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
