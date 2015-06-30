@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/login', login);
 
-app.use('/cadernos', function(req, res, next) {
+app.use(function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
   if(token) {
     jwt.verify(token, config.secret, function(err, decoded) {
