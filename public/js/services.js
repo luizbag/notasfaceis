@@ -15,6 +15,9 @@ angular.module('app.services', ['ngResource'])
       $http.post('/login/register', {"email": email, "password": password}).
         success(function(data, status, headers, config) {
           callback(data);
+        }).
+        error(function(data, status, headers, config) {
+          console.log(status);
         });
     };
   }]);

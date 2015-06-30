@@ -18,6 +18,7 @@ angular.module('app', ['app.controllers', 'ui.router', 'LocalStorageModule'])
       .state('entrar', {
         url: "/entrar",
         templateUrl: "/html/entrar.html",
+        controller: 'LoginController',
         data: {
           requireLogin: false
         }
@@ -25,6 +26,7 @@ angular.module('app', ['app.controllers', 'ui.router', 'LocalStorageModule'])
       .state('cadastrar', {
         url: "/cadastrar",
         templateUrl: "/html/cadastrar.html",
+        controller: 'LoginController',
         data: {
           requireLogin: false
         }
