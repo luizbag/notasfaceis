@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row clearfix">
+    <div class="col-md-4 column">
+    </div>
+    <div class="col-md-4 column">
+      <h1>Entrar</h1>
+      <form ng-submit="login(email, password)">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="email" name="email" id="email" placeholder="Email" />
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" ng-model="password" name="password" id="password" placeholder="Senha" />
+        </div>
+        <button type="submit" class="btn btn-default" id="submit">Entrar</button>
+      </form>
+      <p>{{ error }}</p>
+    </div>
+    <div class="col-md-4 column">
+    </div>
+  </div>
+</div>
