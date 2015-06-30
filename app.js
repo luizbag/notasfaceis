@@ -24,6 +24,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var cadernos = require('./routes/cadernos');
+var notas = require('./routes/notas');
 
 var app = express();
 
@@ -47,16 +48,13 @@ app.use(function(req, res, next) {
   if(token) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if(err) {
-        console.log("Não autorizado");
         return res.sendStatus(401);
       } else {
-        console.log("Autorizado");
         req.decoded = decoded;
         next();
       }
     });
   } else {
-    console.log("Sem token");
     return res.sendStatus(401);
   }
 });
