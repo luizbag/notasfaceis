@@ -30,6 +30,13 @@ angular.module('app', ['app.controllers', 'ui.router', 'LocalStorageModule'])
         data: {
           requireLogin: false
         }
+      })
+      .state('painel', {
+        url: "/painel",
+        templateUrl: "/html/painel.html",
+        data: {
+          requireLogin: true
+        }
       });
   })
   .run(function($rootScope, $state, localStorageService) {

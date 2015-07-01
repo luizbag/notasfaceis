@@ -4,8 +4,7 @@ angular.module('app.controllers', ['app.services', 'LocalStorageModule'])
         LoginService.login(email, password, function(token) {
           if(token !== 'Unauthorized') {
             localStorageService.set('token', token);
-            console.log("sucesso");
-            //$state.go("painel.campanhas");
+            $state.go("painel");
           } else {
             $scope.error = "Usuario não encontrado";
           }
