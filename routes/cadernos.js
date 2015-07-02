@@ -6,7 +6,7 @@ var Caderno = require('../models/Caderno.js');
 var notas = require('./notas');
 
 router.get('/', function(req, res, next) {
-  Caderno.find(function(err, cadernos) {
+  Caderno.find({'user': req.user._id}, function(err, cadernos) {
     if(err) return next(err);
     res.json(cadernos);
   });
@@ -16,11 +16,13 @@ router.get('/:id', function(req, res, next) {
   Caderno.findById(req.params.id, function(err, caderno) {
     if(err) return next(err);
     res.json(caderno);
-  })
+  });
 });
 
 router.post('/', function(req, res, next) {
-  Caderno.create(req.body, function(err, caderno) {
+  var caderno = new Caderno(req.body);
+  caderno.user = req.user._id;
+  Caderno.create(caderno, function(err, caderno) {
     if(err) return next(err);
     res.json(caderno);
   });

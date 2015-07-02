@@ -50,7 +50,7 @@ app.use(function(req, res, next) {
       if(err) {
         return res.sendStatus(401);
       } else {
-        req.decoded = decoded;
+        req.user = decoded;
         next();
       }
     });
