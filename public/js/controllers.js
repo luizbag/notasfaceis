@@ -24,6 +24,7 @@ angular.module('app.controllers', ['app.services'])
   }])
   .controller('PainelController', ['Caderno', '$scope', function(Caderno, $scope){
     $scope.cadernos = Caderno.query();
+    $scope.caderno = null;
   }])
   .controller('CadernoController', ['Caderno', '$scope', '$state', function(Caderno, $scope, $state) {
     $scope.novoCaderno = function() {
@@ -41,5 +42,12 @@ angular.module('app.controllers', ['app.services'])
 
     $scope.cancelar = function() {
       $state.transitionTo('painel');
+    };
+
+    $scope.selectCaderno = function(caderno) {
+      console.log(caderno.nome);
+      $scope.caderno = caderno;
+      console.log($scope.caderno);
+      $state.transitionTo('painel.caderno');
     };
   }]);

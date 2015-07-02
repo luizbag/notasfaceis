@@ -39,6 +39,11 @@ angular.module('app', ['app.controllers', 'app.services', 'ui.router'])
         url: "/novoCaderno",
         templateUrl: "/html/novo_caderno.html",
         controller: 'CadernoController'
+      })
+      .state('painel.caderno', {
+        url: "/caderno",
+        templateUrl: "/html/caderno.html",
+        controller: 'CadernoController'
       });
       $httpProvider.interceptors.push('AuthInterceptor');
   })

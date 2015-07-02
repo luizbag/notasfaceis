@@ -24,15 +24,15 @@
   <div id="sidebar-wrapper" ng-controller='CadernoController'>
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
-        <a href="#">
+        <a href="">
           Cadernos
         </a>
       </li>
       <li ng-repeat="caderno in cadernos">
-        <a href="#">{{caderno.nome}}</a>
+        <a href="" ng-click="selectCaderno(caderno)">{{caderno.nome}}</a>
       </li>
       <li>
-        <a href="" ng-click="novoCaderno()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo Caderno</a>
+        <a href="" ng-click="novoCaderno()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Caderno</a>
       </li>
     </ul>
   </div>
