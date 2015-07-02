@@ -1,1 +1,5 @@
-<h1>Caderno {{ caderno.nome }}</h1>
+<h1>{{ caderno.nome }}</h1>
+<a href="" ng-click="novaNota()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nota</a>
+<ul>
+  <li ng-repeat="nota in caderno.notas">{{ nota.titulo }}</li>
+</ul>

@@ -22,11 +22,10 @@ angular.module('app.controllers', ['app.services'])
       $state.go("home");
     };
   }])
-  .controller('PainelController', ['Caderno', '$scope', function(Caderno, $scope){
-    $scope.cadernos = Caderno.query();
-    $scope.caderno = null;
+  .controller('PainelController', ['Caderno', '$rootScope', function(Caderno, $rootScope){
+    $rootScope.cadernos = Caderno.query();
   }])
-  .controller('CadernoController', ['Caderno', '$scope', '$state', function(Caderno, $scope, $state) {
+  .controller('CadernoController', ['Caderno', '$rootScope', '$scope', '$state', function(Caderno, $rootScope, $scope, $state) {
     $scope.novoCaderno = function() {
       $state.transitionTo('painel.novoCaderno');
     };
@@ -35,7 +34,7 @@ angular.module('app.controllers', ['app.services'])
       var cad = {};
       cad.nome = nome;
       Caderno.save(cad, function(caderno) {
-        $scope.cadernos.push(caderno);
+        $rootScope.cadernos.push(caderno);
         $state.transitionTo('painel');
       });
     };
@@ -45,9 +44,7 @@ angular.module('app.controllers', ['app.services'])
     };
 
     $scope.selectCaderno = function(caderno) {
-      console.log(caderno.nome);
-      $scope.caderno = caderno;
-      console.log($scope.caderno);
+      $rootScope.caderno = caderno;
       $state.transitionTo('painel.caderno');
     };
   }]);
