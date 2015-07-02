@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['app.services', 'LocalStorageModule'])
+angular.module('app.controllers', ['app.services'])
   .controller('LoginController', ['LoginService', 'AuthToken', '$scope', '$state', function(LoginService, AuthToken, $scope, $state) {
     $scope.login = function(email, password) {
       LoginService.login(email, password, function(token) {
