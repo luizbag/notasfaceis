@@ -30,9 +30,15 @@ angular.module('app', ['app.controllers', 'app.services', 'ui.router'])
       .state('painel', {
         url: "/painel",
         templateUrl: "/html/painel.html",
+        controller: 'PainelController',
         data: {
           requireLogin: true
         }
+      })
+      .state('painel.novoCaderno', {
+        url: "/novoCaderno",
+        templateUrl: "/html/novo_caderno.html",
+        controller: 'CadernoController'
       });
       $httpProvider.interceptors.push('AuthInterceptor');
   })
