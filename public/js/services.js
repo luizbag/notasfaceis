@@ -1,4 +1,42 @@
 angular.module('app.services', ['ngResource'])
+  .factory('AuthToken', ['$window', function($window) {
+    var storage = $window.localStorage;
+    var cachedToken;
+    return {
+      setToken: function(token) {
+        cachedToken = token;
+        storage.setItem('token', token);
+      },
+      getToken: function() {
+        if(!cachedToken)
+          cachedToken = storage.getItem('token');
+        return cachedToken;
+      },
+      removeToken: function() {
+        cachedToken = null;
+        storage.removeItem('token');
+      },
+      isAuthenticated: function() {
+        return !!this.getToken();
+      }
+    };
+  }])
+  .factory('AuthInterceptor', function(AuthToken) {
+    return {
+      request: function(config) {
+        var token = AuthToken.getToken();
+        if(token)
+          config.headers.Authorization = token;
+        return config;
+      },
+      response: function(response) {
+        return response;
+      }
+    }
+  })
+  .factory('Caderno', ['$resource', function($resource) {
+    return $resource('/cadernos/:id');
+  }])
   .service('LoginService', ['$http', function($http) {
     this.login = function(email, password, callback) {
       $http.post('/login', {"email": email, "password": password}).

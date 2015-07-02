@@ -1,9 +1,5 @@
-angular.module('app', ['app.controllers', 'ui.router', 'LocalStorageModule'])
-  .config(function($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
-    localStorageServiceProvider
-      .setPrefix('notasfaceis')
-      .setStorageType('sessionStorage')
-      .setNotify(true, true);
+angular.module('app', ['app.controllers', 'app.services', 'ui.router'])
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
     $urlRouterProvider.otherwise("/home");
 
@@ -38,12 +34,12 @@ angular.module('app', ['app.controllers', 'ui.router', 'LocalStorageModule'])
           requireLogin: true
         }
       });
+      $httpProvider.interceptors.push('AuthInterceptor');
   })
-  .run(function($rootScope, $state, localStorageService) {
+  .run(function($rootScope, $state, AuthToken) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
       var requireLogin = toState.data.requireLogin;
-      var token = localStorageService.get('token');
-      if(requireLogin && !token) {
+      if(requireLogin && !AuthToken.isAuthenticated()) {
         event.preventDefault();
         $state.go('entrar');
       }

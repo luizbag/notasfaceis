@@ -44,7 +44,7 @@ app.use('/', routes);
 app.use('/login', login);
 
 app.use(function(req, res, next) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var token = req.headers.authorization;
   if(token) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if(err) {
