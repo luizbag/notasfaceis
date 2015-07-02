@@ -1,5 +1,5 @@
 angular.module('app.controllers', ['app.services', 'LocalStorageModule'])
-  .controller('LoginController', ['LoginService', 'AuthToken', '$rootScope', '$scope', '$state', function(LoginService, AuthToken, $rootScope, $scope, $state) {
+  .controller('LoginController', ['LoginService', 'AuthToken', '$scope', '$state', function(LoginService, AuthToken, $scope, $state) {
     $scope.login = function(email, password) {
       LoginService.login(email, password, function(token) {
         if(token !== 'Unauthorized') {
@@ -31,9 +31,9 @@ angular.module('app.controllers', ['app.services', 'LocalStorageModule'])
     };
 
     $scope.salvar = function(nome) {
-      var caderno = {};
-      caderno.nome = nome;
-      Caderno.save(caderno, function() {
+      var cad = {};
+      cad.nome = nome;
+      Caderno.save(cad, function(caderno) {
         $scope.cadernos.push(caderno);
         $state.transitionTo('painel');
       });
