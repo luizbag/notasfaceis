@@ -37,6 +37,9 @@ angular.module('app.services', ['ngResource'])
   .factory('Caderno', ['$resource', function($resource) {
     return $resource('/cadernos/:id');
   }])
+  .factory('Nota', ['$resource', function($resource) {
+    return $resource('/cadernos/:cadernoId/notas/:id', {cadernoId: '@cadernoId', id: '@id'}, { 'update': { method:'PUT' } });
+  }])
   .service('LoginService', ['$http', function($http) {
     this.login = function(email, password, callback) {
       $http.post('/login', {"email": email, "password": password}).

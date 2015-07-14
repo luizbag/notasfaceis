@@ -25,7 +25,7 @@ angular.module('app.controllers', ['app.services'])
   .controller('PainelController', ['Caderno', '$rootScope', function(Caderno, $rootScope){
     $rootScope.cadernos = Caderno.query();
   }])
-  .controller('CadernoController', ['Caderno', '$rootScope', '$scope', '$state', function(Caderno, $rootScope, $scope, $state) {
+  .controller('CadernoController', ['Caderno', 'Nota', '$rootScope', '$scope', '$state', function(Caderno, Nota, $rootScope, $scope, $state) {
     $scope.novoCaderno = function() {
       $state.transitionTo('painel.novoCaderno');
     };
@@ -46,5 +46,32 @@ angular.module('app.controllers', ['app.services'])
     $scope.selectCaderno = function(caderno) {
       $rootScope.caderno = caderno;
       $state.transitionTo('painel.caderno');
+    };
+
+    $scope.novaNota = function() {
+      $rootScope.nota = {};
+      $rootScope.formName = "Nova Nota";
+      $state.transitionTo('painel.caderno.nota');
+    }
+
+    $scope.selectNota = function(nota) {
+      $rootScope.nota = nota;
+      $rootScope.formName = "Editar Nota";
+      $state.transitionTo('painel.caderno.nota');
+    };
+
+    $scope.salvarNota = function(nota) {
+      var cadernoId = $rootScope.caderno._id;
+      var notaId = $rootScope.nota._id;
+      if(notaId) {
+        Nota.update({cadernoId: cadernoId, id: notaId}, nota, function(n) {
+          $state.transitionTo('painel.caderno');
+        });
+      } else {
+        Nota.save({cadernoId: cadernoId}, nota, function(n) {
+          $rootScope.caderno.notas.push(nota);
+          $state.transitionTo('painel.caderno');
+        });
+      }
     };
   }]);

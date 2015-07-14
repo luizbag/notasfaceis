@@ -1,5 +1,12 @@
 <h1>{{ caderno.nome }}</h1>
-<a href="" ng-click="novaNota()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nota</a>
-<ul>
-  <li ng-repeat="nota in caderno.notas">{{ nota.titulo }}</li>
-</ul>
+<div class="row">
+  <div class="col-md-2">
+    <a href="" ng-click="novaNota()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nota</a>
+    <ul class="list-group" style="margin-top:20px">
+      <button type="button" class="list-group-item" ng-repeat="nota in caderno.notas" ng-click="selectNota(nota)">{{ nota.titulo }}</button>
+    </ul>
+  </div>
+  <div class="col-md-10">
+    <div ui-view></div>
+  </div>
+</div>
